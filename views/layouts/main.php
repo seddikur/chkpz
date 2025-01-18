@@ -12,7 +12,8 @@ use app\widgets\Alert;
  */
 AppAsset::register($this);
 //$siteInfo = Yii::$app->config->get('siteInfo');
-$this->registerJsFile('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js');
+//$this->registerJsFile('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js');
+$this->registerJsFile('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js');
 ?>
 <?php $this->beginPage() ?>
     <!DOCTYPE html>

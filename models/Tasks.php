@@ -3,14 +3,16 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\AttributeBehavior;
+use yii\db\BaseActiveRecord;
 
 /**
  * This is the model class for table "tasks".
  *
  * @property int $id
  * @property string|null $date Дата
- * @property string|null $operation Токарная с ЧПУ 4
- * @property string|null $shift
+ * @property string|null $operation  Название операции
+ * @property string|null $shift смена
  * @property int|null $line номер линии,
  * @property string|null $workcenter отбор в бублике
  * @property int $plan максимальное значение в бублике
@@ -28,6 +30,7 @@ class Tasks extends \yii\db\ActiveRecord
     }
 
     /**
+     * Правила
      * {@inheritdoc}
      */
     public function rules()
@@ -51,14 +54,37 @@ class Tasks extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'date' => 'Дата',
-            'operation' => 'Токарная с ЧПУ 4',
-            'shift' => 'Shift',
-            'line' => 'номер линии,',
+            'operation' => 'Название операции ',
+            'shift' => 'Cмена',
+            'line' => 'Номер линии',
             'workcenter' => 'отбор в бублике',
             'plan' => 'максимальное значение в бублике',
             'fact' => 'На сколько заполнить бублик зеленым цветом относительно plan.',
             'operator' => 'фио сотрудника',
         ];
+    }
+
+    /**
+     * Поведения
+     * @return array[]
+     */
+    public function behaviors()
+    {
+        return [
+
+            //формат даты перед сохранением
+            'date' => [
+                'class' => AttributeBehavior::class,
+                'attributes' => [
+                    BaseActiveRecord::EVENT_BEFORE_INSERT => 'date',
+                    BaseActiveRecord::EVENT_BEFORE_UPDATE => 'date',
+                ],
+                'value' => function ($event) {
+                    return Yii::$app->formatter->asDatetime($this->date . ' 00:00:00', 'php:Y-m-d 00:00:00');
+                },
+            ],
+        ];
+
     }
 
     /**

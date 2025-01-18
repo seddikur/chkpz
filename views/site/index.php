@@ -3,6 +3,7 @@
 use phpnt\chartJS\ChartJs;
 use practically\chartjs\widgets\Chart;
 use yii\web\JsExpression;
+use yii\helpers\Html;
 
 /** @var yii\web\View $this */
 
@@ -16,113 +17,47 @@ $this->title = 'Графики';
  * "#b3b3b3",
  * "#214092"
  */
-$numVal = '78';
+
+/** @var \app\models\Tasks $model */
+$numVal = '78 %';
 ?>
+
+<style>
+    .made {
+        display: inline;
+    }
+
+</style>
 <div class="site-index">
-
     <div class="row">
-
-        <div class="col-lg-3">
-            <div class="well">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <p><strong>2-3-14</strong></p>
-                    </div>
-                    <div class="col-lg-6">
-                        <p class="pull-right">Токарная с ЧПУ-4</p>
-                    </div>
-                </div>
-                <?php
-                echo ChartJs::widget([
-                    'type' => ChartJs::TYPE_DOUGHNUT,
-                    'data' => [
-                        'datasets' => [
-                            [
-                                'data' => [300, 100],
-                                'backgroundColor' => [
-                                    "#009945",
-                                    "#b3b3b3",
-                                ],
-                                'hoverBackgroundColor' => [
-                                    "#009945",
-                                    "#b3b3b3",
-                                ]
-                            ],
-                        ],
-                    ],
-                    'clientOptions' => [
-                        'scales' => [
-                            'y' => [
-                                'min' => 0,
-                                'max' => 100,
-                                'title' => [
-                                    'display' => true,
-                                    'text' => 'Average (%)',
-                                ],
-                                'ticks' => [
-                                    'callback' => new JsExpression('function(value, index, values) {
-							return \'£\'+value;
-					}')
-                                ]
-                            ]
-                        ],
-                        'plugins' => [
-                            'tooltip' => [
-                                'callbacks' => [
-                                    'label' => new JsExpression('function(context) {
-                                     alert(555);
-						return \'£\'+context.chart.data.labels[context.dataIndex];
-					}')
-                                ]
-                            ]
-                        ]
-                    ],
-
-
-//                    'options' => [
-//                        'elements' => [
-//                            'center' => ['text' => 'textInside']
-//                        ],
-//                    ],
-
-                ]);
-                ?>
+        <div class="col-lg-4">
+            <div class="well text-center">
+            <?php echo Html::img('@web/logo.png',
+                ['width' => '320']
+            )
+            ?>
             </div>
         </div>
+        <div class="col-lg-4">
 
-        <div class="col-lg-3">
-            <div class="well">
-                <?php
-                echo ChartJs::widget([
-                    'type' => ChartJs::TYPE_DOUGHNUT,
-                    'data' => [
-                        'labels' => [
-                            "Красный",
-                            "Синий",
-                            "Желтый"
-                        ],
-                        'datasets' => [
-                            [
-                                'data' => [300, 50, 100],
-                                'backgroundColor' => [
-                                    "#FF6384",
-                                    "#36A2EB",
-                                    "#FFCE56"
-                                ],
-                                'hoverBackgroundColor' => [
-                                    "#FF6384",
-                                    "#36A2EB",
-                                    "#FFCE56"
-                                ]
-                            ]
-                        ]
-                    ],
-                    'options' => []
-                ]);
-                ?>
+        </div>
+        <div class="col-lg-4">
+            <div class="well text-center">
+                <strong>
+                    <p class="made" style="color: #214092;font-size: 26px;">
+                        Изготовлено /
+                    </p>
+                    <p class="made" style="color: #999999;font-size: 26px;">
+                        Осталось
+                    </p>
+                </strong>
             </div>
         </div>
-
+    </div>
+    <div class="row">
+        <?php foreach ($model as $data): ?>
+            <?php echo $this->render('_chart', ['data' => $data,]) ?>
+        <?php endforeach; ?>
 
     </div>
 

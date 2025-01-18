@@ -9,7 +9,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * TasksController implements the CRUD actions for Tasks model.
+ * TasksController реализует модель CRUD-действий для задач.
  */
 class TasksController extends Controller
 {
@@ -32,7 +32,7 @@ class TasksController extends Controller
     }
 
     /**
-     * Lists all Tasks models.
+     * Содержит список всех задач.
      *
      * @return string
      */
@@ -48,10 +48,10 @@ class TasksController extends Controller
     }
 
     /**
-     * Displays a single Tasks model.
+     * Отображает единую задачу.
      * @param int $id ID
      * @return string
-     * @throws NotFoundHttpException if the model cannot be found
+     * @throws NotFoundHttpException если модель не может быть найдена
      */
     public function actionView($id)
     {
@@ -61,8 +61,8 @@ class TasksController extends Controller
     }
 
     /**
-     * Creates a new Tasks model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * Создает новую модель задач.
+     * Если создание прошло успешно, браузер будет перенаправлен на страницу "index".
      * @return string|\yii\web\Response
      */
     public function actionCreate()
@@ -71,7 +71,8 @@ class TasksController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                \Yii::$app->session->setFlash('success', 'Задача успешно создана!');
+                return $this->redirect(['index']);
             }
         } else {
             $model->loadDefaultValues();
@@ -83,18 +84,19 @@ class TasksController extends Controller
     }
 
     /**
-     * Updates an existing Tasks model.
-     * If update is successful, the browser will be redirected to the 'view' page.
+     * Обновляет новую модель задач.
+     * Если обновление прошло успешно, браузер будет перенаправлен на страницу "index".
      * @param int $id ID
      * @return string|\yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
+     * @throws NotFoundHttpException если модель не может быть найдена
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            \Yii::$app->session->setFlash('success', 'Задача успешно сохранена!');
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [
@@ -103,25 +105,25 @@ class TasksController extends Controller
     }
 
     /**
-     * Deletes an existing Tasks model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * Удаляет существующую задачу.
+     * Если удаление прошло успешно, браузер будет перенаправлен на страницу "index".
      * @param int $id ID
      * @return \yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
+     * @throws NotFoundHttpException если модель не может быть найдена
      */
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
+        \Yii::$app->session->setFlash('success', 'Задача удалена!');
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Tasks model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
+     * Находит модель задач на основе значения ее первичного ключа.
+     * Если модель не найдена, будет выдано HTTP-исключение 404.
      * @param int $id ID
-     * @return Tasks the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
+     * @return Tasks загруженная модель
+     * @throws NotFoundHttpException если модель не может быть найдена
      */
     protected function findModel($id)
     {
@@ -129,6 +131,6 @@ class TasksController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('Запрошенная страница не существует.');
     }
 }

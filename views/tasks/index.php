@@ -10,15 +10,15 @@ use yii\grid\GridView;
 /** @var app\models\TasksSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Tasks';
+$this->title = 'Задачи';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tasks-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h3><?= Html::encode($this->title) ?></h3>
 
     <p>
-        <?= Html::a('Create Tasks', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Новая', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -27,17 +27,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             'date',
             'operation',
             'shift',
             'line',
-            //'workcenter',
-            //'plan',
-            //'fact',
-            //'operator',
+            'workcenter',
+            'plan',
+            'fact',
+            'operator',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Tasks $model, $key, $index, $column) {
