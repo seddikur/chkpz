@@ -36,6 +36,10 @@ $this->registerJsFile('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Cha
             ],
         ]);
         $menuItems[] = [
+            'label' => 'Графики',
+            'url' => ['/site/index']
+        ];
+        $menuItems[] = [
                 'label' => 'Сменная выработка',
                 'url' => ['/tasks/index']
         ];

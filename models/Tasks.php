@@ -88,6 +88,17 @@ class Tasks extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return void
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function afterFind()
+    {
+        //вывод даты в формате d-m-Y в update
+        $this->date = Yii::$app->formatter->asDate($this->date, "php:d-m-Y");
+        return parent::afterFind();
+    }
+
+    /**
      * {@inheritdoc}
      * @return TasksQuery the active query used by this AR class.
      */
