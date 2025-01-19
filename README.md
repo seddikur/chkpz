@@ -8,7 +8,8 @@
 * Запуск миграций `` php yii migrate ``
 * Установить права для записи логов и кэша  `` chmod -R 777 runtime/ web/assets/ ``
 
-
-
-# Сайт
+# Локально сайт
 http://localhost:8000/
+
+# Демо
+http://wash-lp.ru/
