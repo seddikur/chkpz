@@ -82,6 +82,33 @@ class SiteController extends Controller
         ]);
     }
 
+//    public function beforeAction($action)
+//    {
+//        $this->enableCsrfValidation = false;
+//        return parent::beforeAction($action);
+//    }
+
+    /**
+     * @return void
+     */
+    public function actionRenderData()
+    {
+        if (\Yii::$app->request->isAjax) {
+        $this->layout = '@app/views/layouts/blank';
+        $model = Tasks::find()->asArray()->all();
+//            echo "<pre>";
+//            print_r($data);
+//            die();
+            return $this->render('_chart_ajax',[
+//            return $this->renderPartial('_chart',[
+                'model' => $model
+            ]);
+        } else {
+            echo "<pre>";
+            print_r('ошибка');
+            die();
+        }
+    }
 
 
     /**

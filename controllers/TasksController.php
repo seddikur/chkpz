@@ -22,11 +22,12 @@ class TasksController extends Controller
             parent::behaviors(),
             [
                 'verbs' => [
-                    'class' => VerbFilter::className(),
+                    'class' => VerbFilter::class,
                     'actions' => [
-                        'delete' => ['POST'],
+                        'delete' => ['post'],
                     ],
                 ],
+
             ]
         );
     }
@@ -112,6 +113,13 @@ class TasksController extends Controller
      * @throws NotFoundHttpException если модель не может быть найдена
      */
     public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
+        \Yii::$app->session->setFlash('success', 'Задача удалена!');
+        return $this->redirect(['index']);
+    }
+
+    public function actionRemove($id)
     {
         $this->findModel($id)->delete();
         \Yii::$app->session->setFlash('success', 'Задача удалена!');

@@ -19,7 +19,7 @@ $this->title = 'Графики';
  */
 
 /** @var \app\models\Tasks $model */
-$numVal = '78 %';
+
 ?>
 
 <style>
@@ -54,7 +54,7 @@ $numVal = '78 %';
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row" id ="chart_content">
         <?php foreach ($model as $data): ?>
             <?php echo $this->render('_chart', ['data' => $data,]) ?>
         <?php endforeach; ?>
@@ -62,3 +62,38 @@ $numVal = '78 %';
     </div>
 
 </div>
+
+<?php
+
+$script = <<< JS
+
+const start = Date.now();
+
+setInterval(function() {
+    
+var dt = new Date();
+var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+
+console.log(time);
+
+ // const csrfToken = $('meta[name="csrf-token"]').attr("content");
+
+    $.ajax({
+        url: '/site/render-data',
+        type: 'GET',
+        data: null,
+        success: function(res){
+            // $("#goods_order_statistic_result_block").html(res);
+            $("#chart_content").html(res);
+            // console.log(res)
+        },
+        error: function(){
+            alert(error);
+        }
+    });
+
+}, 10 * 1000); // 10 * 1000 milsec
+
+JS;
+$this->registerJs($script, \yii\web\View::POS_END);// !!! обязательно POS_END
+?>

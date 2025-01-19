@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+//        'filterModel' => $searchModel,
         'columns' => [
             'id',
             'date',
@@ -37,10 +37,33 @@ $this->params['breadcrumbs'][] = $this->title;
             'fact',
             'operator',
             [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Tasks $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                'class' => yii\grid\ActionColumn::class,
+                'headerOptions' => ['style' => 'width:80px '],
+                'template' => ' {update} {delete} ',
+                'buttons' => [
+                    'update' => function ($url) {
+                        return Html::a(
+                            '<span class="glyphicon glyphicon-pencil text-success"></span>',
+                            $url,
+                            [
+                                'title' => 'Download',
+                                'data-pjax' => '0',
+                            ]
+                        );
+                    },
+                    'delete' => function ($url, $model) {
+                        $url = Url::to(['remove', 'id' => $model->id]);
+                        return Html::a('<span class="glyphicon glyphicon-trash text-danger"></span>',
+                            $url,
+                            [
+                                'title' => 'delete',
+                                'data' => [
+                                    'confirm' => 'Вы уверены, что хотите удалить этот элемент?',
+                                ],
+
+                            ]);
+                    },
+                ],
             ],
         ],
     ]); ?>

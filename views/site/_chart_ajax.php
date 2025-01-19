@@ -1,11 +1,12 @@
 <?php
-/** @var \app\models\Tasks $data */
+
+/** @var \app\models\Tasks $model */
 
 //\yii\helpers\VarDumper::dump($data,10, true);
-$numVal = $data['fact']/$data['plan']*100 . ' %';
 
 ?>
-
+ <?php foreach ($model as $data): ?>
+<?php $numVal = $data['fact']/$data['plan']*100 . ' %'; ?>
 <div class="col-lg-3">
     <div class="well">
         <div class="row">
@@ -96,3 +97,6 @@ $numVal = $data['fact']/$data['plan']*100 . ' %';
         <p class="text-center" style="color: #214092;font-size: 18px;"><strong class="big"><?=$data['operator']?></strong></p>
     </diV>
 </div>
+<?php endforeach; ?>
+
+<?php echo date('H:i:s d-m-Y');?>
