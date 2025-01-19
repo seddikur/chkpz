@@ -92,7 +92,7 @@ console.log(time);
         }
     });
 
-}, 10 * 1000); // 10 * 1000 milsec
+}, 30 * 1000); // 10 * 1000 milsec
 
 JS;
 $this->registerJs($script, \yii\web\View::POS_END);// !!! обязательно POS_END
