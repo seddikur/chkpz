@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Tasks;
 use Yii;
 use yii\filters\AccessControl;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 
@@ -76,7 +77,7 @@ class SiteController extends Controller
             */
 //        ]);
 
-        $model = Tasks::find()->asArray()->all();
+        $model = Tasks::findShiftNow();
         return $this->render('index', [
             'model' => $model,
         ]);
@@ -95,12 +96,11 @@ class SiteController extends Controller
     {
         if (\Yii::$app->request->isAjax) {
         $this->layout = '@app/views/layouts/blank';
-        $model = Tasks::find()->asArray()->all();
+            $model = Tasks::findShiftNow();
 //            echo "<pre>";
 //            print_r($data);
 //            die();
             return $this->render('_chart_ajax',[
-//            return $this->renderPartial('_chart',[
                 'model' => $model
             ]);
         } else {
@@ -120,4 +120,5 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+
 }

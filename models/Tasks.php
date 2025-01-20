@@ -106,4 +106,22 @@ class Tasks extends \yii\db\ActiveRecord
     {
         return new TasksQuery(get_called_class());
     }
+
+    /**
+     * Выборка в зависимости от времени суток
+     * @return mixed
+     */
+    public static function findShiftNow()
+    {
+        $date_now = date('Y-m-d H:i:s');
+        $time_end = date('Y-m-d 24:00:00');
+        $time_start = date('Y-m-d 12:00:00');
+
+        if ($date_now < $time_end && $date_now > $time_start) {
+            return Tasks::find()->findShift2()->asArray()->all();
+        } else {
+            return Tasks::find()->findShift2()->asArray()->all();
+        }
+
+    }
 }

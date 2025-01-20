@@ -99,4 +99,4 @@
 </div>
 <?php endforeach; ?>
 
-<?php echo date('H:i:s d-m-Y');?>
+<?php //echo date('H:i:s d-m-Y');?>

@@ -31,4 +31,22 @@ class TasksQuery extends \yii\db\ActiveQuery
     {
         return parent::one($db);
     }
+
+    /**
+     * Выборка 1 смены
+     * @return TasksQuery
+     */
+    public function findShift1()
+    {
+        return $this->andWhere(['shift'=>1]);
+    }
+
+    /**
+     * Выборка 1 смены
+     * @return TasksQuery
+     */
+    public function findShift2()
+    {
+        return $this->andWhere(['shift'=>2]);
+    }
 }
